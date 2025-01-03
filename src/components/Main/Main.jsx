@@ -32,7 +32,7 @@ const Main = () => {
               </p>
               <p className="text-4xl">How can I help you today?</p>
             </div>
-            <div className="max-h-[42vh] overflow-auto grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 p-5">
+            <div className="max-h-[42vh] overflow-y-scroll no-scrollbar grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 p-5">
               <div className={cardClasses}>
                 <p className="text-[#585858]">Suggest beautiful places to see on an upcoming road trip.</p>
                 <img className={cardImgClasses} src={assets.compass_icon} alt="" />
