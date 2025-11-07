@@ -1,42 +1,26 @@
 /*
  * Install the Generative AI SDK
  *
- * $ npm install @google/generative-ai
+ * $ npm install @google/genai
  */
 
-import {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-} from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-const genAI = new GoogleGenerativeAI(apiKey);
-
-const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
+const ai = new GoogleGenAI({
+  apiKey: apiKey
 });
 
-const generationConfig = {
-  temperature: 1,
-  topP: 0.95,
-  topK: 64,
-  maxOutputTokens: 8192,
-  responseMimeType: "text/plain",
-};
-
 async function run(prompt) {
-  const chatSession = model.startChat({
-    generationConfig,
- // safetySettings: Adjust safety settings
- // See https://ai.google.dev/gemini-api/docs/safety-settings
-    history: [
-    ],
+  try{
+    const response = await ai.models.generateContent({
+    model: "gemini-2.5-flash",
+    contents: prompt,
   });
-
-  const result = await chatSession.sendMessage(prompt);
-  console.log(result.response.text());
-  return result.response.text();
+  return response.text;
+  } catch (error) {
+    console.error("Error generating content from Gemini", error);
+  }
 }
 
 export default run;
